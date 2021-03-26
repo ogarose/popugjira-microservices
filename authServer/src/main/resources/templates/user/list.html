@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/layout}"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>User list</title>
+</head>
+<body>
+<main  layout:fragment="content">
+    <div>
+        <a th:href="@{/users/add}">Add</a>
+    </div>
+    <table border="1">
+        <tr th:each="user : ${users}">
+            <td>
+                <a th:href="@{/users/{id}/edit(id=${user.id})}" th:text="${user.id}"></a>
+            </td>
+            <td th:text="${user.username}">
+            </td>
+            <td th:text="${user.role}"></td>
+            <td th:text="${user.email}"></td>
+            <td th:text="${user.phone}"></td>
+            <td>
+                <a th:href="@{/users/{id}/delete(id=${user.id})}">Delete</a>
+            </td>
+        </tr>
+    </table>
+</main>
+</body>
+</html>

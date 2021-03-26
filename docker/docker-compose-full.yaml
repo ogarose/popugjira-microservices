@@ -1,0 +1,59 @@
+version: '3.4'
+services:
+  auth-server:
+    container_name: popugjira-auth-app
+    build:
+      context: ./../authServer
+      dockerfile: ../docker/auth/Dockerfile
+    user: ${uid}:${gid}
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      AUTH_DB_USER: ${AUTH_DB_USER}
+      AUTH_DB_PASSWORD: ${AUTH_DB_PASSWORD}
+      AUTH_DB_NAME: ${AUTH_DB_NAME}
+    ports:
+      - 5006:5005
+      - 9000:9000
+    depends_on:
+      - auth-db
+  traker-app:
+    container_name: popugjira-traker-app
+    build:
+      context: ./../taskTraker
+      dockerfile: ../docker/traker/Dockerfile
+    user: ${uid}:${gid}
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_NAME: ${DB_NAME}
+    ports:
+      - 5005:5005
+      - 8080:8080
+    depends_on:
+      - traker-db
+      - auth-server
+  auth-db:
+    image: mysql:5.7.33
+    container_name: popugjira-auth-mysql
+    ports:
+      - ${AUTH_DB_PORT}:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: ${AUTH_DB_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${AUTH_DB_NAME}
+      MYSQL_USER: ${AUTH_DB_USER}
+      MYSQL_PASSWORD: ${AUTH_DB_PASSWORD}
+    volumes:
+      - ./mysqlAuth:/var/lib/mysql
+  traker-db:
+    image: mysql:5.7.33
+    container_name: popugjira-traker-mysql
+    ports:
+      - ${DB_PORT}:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - ./mysql:/var/lib/mysql

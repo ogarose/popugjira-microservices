@@ -1,0 +1,3 @@
+spring:
+  datasource:
+    url: jdbc:mysql://traker-db:3306/${DB_NAME}

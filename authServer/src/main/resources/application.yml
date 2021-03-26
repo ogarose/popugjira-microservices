@@ -1,0 +1,30 @@
+server:
+  port: 9000
+
+logging:
+  level:
+    root: false
+    org.springframework.web: DEBUG
+    org.springframework.security: DEBUG
+    org.springframework.security.oauth2: DEBUG
+#    org.springframework.boot.autoconfigure: DEBUG
+
+spring:
+  mvc:
+    log-request-details: true
+  datasource:
+    url: jdbc:mysql://${AUTH_DB_HOST}:${AUTH_DB_PORT}/${AUTH_DB_NAME}
+    username: ${AUTH_DB_USER}
+    password: ${AUTH_DB_PASSWORD}
+    platform: mysql
+  jpa:
+    hibernate:
+      ddl-auto: update
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    database: mysql
+    show-sql: true
+#  security:
+#    oauth2:
+#      resourceserver:
+#        jwt:
+#          issuer-uri: http://auth-server:9000

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/layout}"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Auth login</title>
+</head>
+<body>
+<main class="flex-shrink-0" layout:fragment="content">
+    <div th:if="${error}" class="alert alert-danger alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 th:text="${error}" class="text-center"></h4>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Authorize the client using <span style="font-family:monospace">grant_type</span>:</h3>
+        </div>
+        <div th:if="${messages}" class="panel-footer">
+            <h4>Messages:</h4>
+            <table class="table table-condensed">
+                <tbody>
+                <tr class="row" th:each="message : ${messages}">
+                    <td th:text="${message}">message</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</main>
+</body>
+</html>

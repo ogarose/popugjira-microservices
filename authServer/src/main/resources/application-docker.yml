@@ -1,0 +1,3 @@
+spring:
+  datasource:
+    url: jdbc:mysql://auth-db:3306/${AUTH_DB_NAME}

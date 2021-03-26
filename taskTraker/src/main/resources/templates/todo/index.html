@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/layout}"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Todo 2</title>
+</head>
+<body>
+<main class="flex-shrink-0" layout:fragment="content">
+    <div class="container">
+        <div class="row mt-5">
+            <div class="col-3"><h1>Todo Dashboard</h1></div>
+            <div class="col-6">
+                <div class="alert alert-success fade show" role="alert" th:text="${successAlert}" th:if="${successAlert}">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    A simple warning alert—check it out!
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm">
+                <div class="row">
+                    <div class="col">
+                        <h3>Open</h3>
+                    </div>
+                    <div class="col ">
+                        <div class="dropdown float-end">
+                            <button class="btn btn-sm btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                Task Actions
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="margin: 0px;">
+                                <li><a class="dropdown-item" th:href="@{/task/add}">Add</a></li>
+                                <li sec:authorize="hasRole('ROLE_ADMIN')"><a class="dropdown-item" th:href="@{/task/reassign-all}">Asign all</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <table class="table">
+                    <tr th:each="task : ${openTasks}">
+                        <td th:text="${task.id}">1</td>
+                        <td th:text="${task.title}">TaskTitle</td>
+                        <td>
+                            <div class="btn-group float-end">
+                                <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Actions
+                                </button>
+                                <ul class="dropdown-menu">
+
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-sm">
+                <h3>Assigned to me</h3>
+                <table class="table">
+                    <tr th:each="task : ${assignedTask}">
+                        <td th:text="${task.id}">1</td>
+                        <td th:text="${task.title}">TaskTitle</td>
+                        <td>
+                            <div class="btn-group float-end">
+                                <button class="btn btn-secondary btn-sm dropdown-toggle" type="button"
+                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                    Actions
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item"
+                                           th:href="@{/task/{id}/close(id = ${task.id})}">Close</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-sm">
+                <h3>Closed</h3>
+                <table class="table">
+                    <tr th:each="task : ${closedTasks}">
+                        <td th:text="${task.id}">1</td>
+                        <td th:text="${task.title}">TaskTitle</td>
+                        <td>
+                            <div class="btn-group float-end">
+                                <button class="btn btn-secondary btn-sm dropdown-toggle" type="button"
+                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                    Actions
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item"
+                                           th:href="@{/task/{id}/reopen(id = ${task.id})}">Reopen</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</main>
+</body>
+</html>
