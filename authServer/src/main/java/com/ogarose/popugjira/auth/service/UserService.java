@@ -10,6 +10,8 @@ import com.ogarose.popugjira.auth.model.event.cud.UserUpdated;
 import com.ogarose.popugjira.auth.repository.UserRepositoryJpa;
 import com.ogarose.popugjira.auth.service.command.UserCommand;
 import com.ogarose.popugjira.auth.service.command.UserCommandMapper;
+import com.ogarose.popugjira.auth.service.message.EventTopics;
+import com.ogarose.popugjira.auth.service.message.MessageBus;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -57,8 +59,14 @@ public class UserService implements UserDetailsService {
 
         saveUser(userToSave);
 
-        UserCreated event = new UserCreated(userToSave.getId());
-        messageBus.sendMessage(EventTopics.USER_CUD, mapper.writeValueAsString(event));
+        UserCreated event = new UserCreated(
+                userToSave.getId(),
+                userToSave.getUsername(),
+                userToSave.getRole(),
+                userToSave.getEmail(),
+                userToSave.getPhone()
+        );
+        messageBus.sendMessage(EventTopics.USER_CUD, event);
     }
 
     public void updateUser(UserCommand userCommand) throws JsonProcessingException {
@@ -68,9 +76,7 @@ public class UserService implements UserDetailsService {
         user.setEmail(userCommand.getEmail());
         UserRoleUpdated userRoleUpdated = null;
         if (!user.getRole().equals(userCommand.getRole())) {
-            userRoleUpdated = new UserRoleUpdated();
-            userRoleUpdated.setId(user.getId());
-            userRoleUpdated.setRole(userCommand.getRole());
+            userRoleUpdated = new UserRoleUpdated(user.getId(), userCommand.getRole());
         }
         user.setRole(userCommand.getRole());
 
@@ -80,10 +86,16 @@ public class UserService implements UserDetailsService {
         }
         saveUser(user, hasPassword);
 
-        UserUpdated userUpdated = new UserUpdated(user.getId());
-        messageBus.sendMessage(EventTopics.USER_CUD, mapper.writeValueAsString(userUpdated));
+        UserUpdated userUpdated = new UserUpdated(
+                user.getId(),
+                user.getUsername(),
+                user.getRole(),
+                user.getEmail(),
+                user.getPhone()
+        );
+        messageBus.sendMessage(EventTopics.USER_CUD, userUpdated);
         if (userRoleUpdated != null) {
-            messageBus.sendMessage(EventTopics.USER_BIZ, mapper.writeValueAsString(userRoleUpdated));
+            messageBus.sendMessage(EventTopics.USER_BIZ, userRoleUpdated);
         }
     }
 
@@ -103,6 +115,6 @@ public class UserService implements UserDetailsService {
         userRepositoryJpa.delete(user);
 
         UserDeleted event = new UserDeleted(user.getId());
-        messageBus.sendMessage(EventTopics.USER_CUD, mapper.writeValueAsString(event));
+        messageBus.sendMessage(EventTopics.USER_CUD, event);
     }
 }

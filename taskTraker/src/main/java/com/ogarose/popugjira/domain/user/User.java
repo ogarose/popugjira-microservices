@@ -59,6 +59,13 @@ public class User implements UserDetails, OAuth2User {
         this.phone = phone;
     }
 
+    public void update(String name, Role role, String email, String phone) {
+        this.name = name;
+        this.role = role;
+        this.email = email;
+        this.phone = phone;
+    }
+
     @Override
     public Map<String, Object> getAttributes() {
         return new HashMap<>();

@@ -4,6 +4,7 @@ logging:
     org.springframework.web: INFO
     org.springframework.security: INFO
     org.springframework.security.oauth2: INFO
+    com.ogarose.popugjira: DEBUG
 #    org.springframework.boot.autoconfigure: DEBUG
 
 spring:
@@ -18,6 +19,14 @@ spring:
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     database: mysql
     show-sql: false
+  kafka:
+    consumer:
+      bootstrap-servers: localhost:9092
+      group-id: tasktraker
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+#      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
   security:
     oauth2:
       client:

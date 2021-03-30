@@ -7,6 +7,8 @@ logging:
     org.springframework.web: DEBUG
     org.springframework.security: DEBUG
     org.springframework.security.oauth2: DEBUG
+    com.ogarose.popugjira.auth: DEBUG
+
 #    org.springframework.boot.autoconfigure: DEBUG
 
 spring:
@@ -28,3 +30,8 @@ spring:
 #      resourceserver:
 #        jwt:
 #          issuer-uri: http://auth-server:9000
+  kafka:
+    producer:
+      bootstrap-servers: localhost:9092
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer

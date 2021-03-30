@@ -8,10 +8,9 @@ import java.util.UUID;
 @Getter
 @Setter
 public class UserDeleted {
-    private UUID id;
-    private String type = "userDeleted";
+    private UUID publicId;
 
-    public UserDeleted(UUID id) {
-        this.id = id;
+    public UserDeleted(UUID publicId) {
+        this.publicId = publicId;
     }
 }
