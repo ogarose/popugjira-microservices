@@ -14,10 +14,7 @@ public class MessageBus {
     ObjectMapper objectMapper;
 
     public void sendMessage(String topic, Object event) {
-        Message message = new Message(event.getClass().getSimpleName(), event);
-
-        log.info("Sent Event. Topic: " + topic + ". Body " + message.toString());
-
-        kafkaTemplate.send(topic, message);
+        log.info("Sent Event. Topic: " + topic + ". Body " + event.toString());
+        kafkaTemplate.send(topic, event);
     }
 }

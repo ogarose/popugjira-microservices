@@ -3,15 +3,15 @@ package com.ogarose.popugjira.auth.service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ogarose.popugjira.auth.model.User;
-import com.ogarose.popugjira.auth.model.event.biz.UserRoleUpdated;
-import com.ogarose.popugjira.auth.model.event.cud.UserCreated;
-import com.ogarose.popugjira.auth.model.event.cud.UserDeleted;
-import com.ogarose.popugjira.auth.model.event.cud.UserUpdated;
+import com.ogarose.popugjira.common.messaging.auth.biz.UserRoleUpdated;
+import com.ogarose.popugjira.common.messaging.auth.cud.UserDeleted;
+import com.ogarose.popugjira.common.messaging.auth.cud.UserUpdated;
 import com.ogarose.popugjira.auth.repository.UserRepositoryJpa;
 import com.ogarose.popugjira.auth.service.command.UserCommand;
 import com.ogarose.popugjira.auth.service.command.UserCommandMapper;
 import com.ogarose.popugjira.auth.service.message.EventTopics;
 import com.ogarose.popugjira.auth.service.message.MessageBus;
+import com.ogarose.popugjira.common.messaging.auth.cud.UserCreated;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -62,10 +62,11 @@ public class UserService implements UserDetailsService {
         UserCreated event = new UserCreated(
                 userToSave.getId(),
                 userToSave.getUsername(),
-                userToSave.getRole(),
+                userToSave.getRole().name(),
                 userToSave.getEmail(),
                 userToSave.getPhone()
         );
+
         messageBus.sendMessage(EventTopics.USER_CUD, event);
     }
 
@@ -76,7 +77,7 @@ public class UserService implements UserDetailsService {
         user.setEmail(userCommand.getEmail());
         UserRoleUpdated userRoleUpdated = null;
         if (!user.getRole().equals(userCommand.getRole())) {
-            userRoleUpdated = new UserRoleUpdated(user.getId(), userCommand.getRole());
+            userRoleUpdated = new UserRoleUpdated(user.getId(), userCommand.getRole().name());
         }
         user.setRole(userCommand.getRole());
 
@@ -89,7 +90,7 @@ public class UserService implements UserDetailsService {
         UserUpdated userUpdated = new UserUpdated(
                 user.getId(),
                 user.getUsername(),
-                user.getRole(),
+                user.getRole().name(),
                 user.getEmail(),
                 user.getPhone()
         );

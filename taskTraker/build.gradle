@@ -33,6 +33,8 @@ dependencies {
 
 	implementation 'org.springframework.kafka:spring-kafka'
 
+	implementation project(':common:messaging')
+
 	implementation 'org.mapstruct:mapstruct:1.4.1.Final'
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
@@ -50,3 +52,7 @@ dependencies {
 //test {
 //	useJUnitPlatform()
 //}
+
+task prepareKotlinBuildScriptModel {
+
+}

@@ -1,0 +1,3 @@
+rootProject.name = 'popugjira-project'
+
+include 'authServer', 'taskTraker', 'common:messaging'
