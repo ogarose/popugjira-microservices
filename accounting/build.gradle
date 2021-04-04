@@ -30,6 +30,9 @@ dependencies {
 
     implementation group: 'nz.net.ultraq.thymeleaf', name: 'thymeleaf-layout-dialect', version: '2.5.2'
 
+    implementation 'org.springframework.kafka:spring-kafka'
+    implementation project(':common:messaging')
+
     compileOnly 'org.projectlombok:lombok'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     runtimeOnly 'mysql:mysql-connector-java'
@@ -42,4 +45,8 @@ dependencies {
 
 test {
     useJUnitPlatform()
+}
+
+task prepareKotlinBuildScriptModel {
+
 }

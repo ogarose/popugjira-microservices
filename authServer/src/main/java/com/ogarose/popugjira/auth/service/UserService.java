@@ -3,15 +3,15 @@ package com.ogarose.popugjira.auth.service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ogarose.popugjira.auth.model.User;
-import com.ogarose.popugjira.common.messaging.auth.biz.UserRoleUpdated;
-import com.ogarose.popugjira.common.messaging.auth.cud.UserDeleted;
-import com.ogarose.popugjira.common.messaging.auth.cud.UserUpdated;
 import com.ogarose.popugjira.auth.repository.UserRepositoryJpa;
 import com.ogarose.popugjira.auth.service.command.UserCommand;
 import com.ogarose.popugjira.auth.service.command.UserCommandMapper;
-import com.ogarose.popugjira.auth.service.message.EventTopics;
 import com.ogarose.popugjira.auth.service.message.MessageBus;
+import com.ogarose.popugjira.common.messaging.MessageTopics;
+import com.ogarose.popugjira.common.messaging.auth.biz.UserRoleUpdated;
 import com.ogarose.popugjira.common.messaging.auth.cud.UserCreated;
+import com.ogarose.popugjira.common.messaging.auth.cud.UserDeleted;
+import com.ogarose.popugjira.common.messaging.auth.cud.UserUpdated;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -67,7 +67,7 @@ public class UserService implements UserDetailsService {
                 userToSave.getPhone()
         );
 
-        messageBus.sendMessage(EventTopics.USER_CUD, event);
+        messageBus.sendMessage(MessageTopics.USER_CUD, event);
     }
 
     public void updateUser(UserCommand userCommand) throws JsonProcessingException {
@@ -94,9 +94,9 @@ public class UserService implements UserDetailsService {
                 user.getEmail(),
                 user.getPhone()
         );
-        messageBus.sendMessage(EventTopics.USER_CUD, userUpdated);
+        messageBus.sendMessage(MessageTopics.USER_CUD, userUpdated);
         if (userRoleUpdated != null) {
-            messageBus.sendMessage(EventTopics.USER_BIZ, userRoleUpdated);
+            messageBus.sendMessage(MessageTopics.USER_BIZ, userRoleUpdated);
         }
     }
 
@@ -116,6 +116,6 @@ public class UserService implements UserDetailsService {
         userRepositoryJpa.delete(user);
 
         UserDeleted event = new UserDeleted(user.getId());
-        messageBus.sendMessage(EventTopics.USER_CUD, event);
+        messageBus.sendMessage(MessageTopics.USER_CUD, event);
     }
 }

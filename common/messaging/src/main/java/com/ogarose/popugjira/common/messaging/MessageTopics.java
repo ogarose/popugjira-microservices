@@ -1,4 +1,4 @@
-package com.ogarose.popugjira.infrastructure.messaging;
+package com.ogarose.popugjira.common.messaging;
 
 /**
  * Message topic convention

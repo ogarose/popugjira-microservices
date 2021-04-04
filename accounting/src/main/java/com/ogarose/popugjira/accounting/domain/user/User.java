@@ -32,22 +32,12 @@ public class User implements UserDetails, OAuth2User {
     @Column(nullable = false)
     private String phone;
 
+    private Integer balance = 0;
+
+    @OneToMany(mappedBy = "user")
+    private Set<Transaction> transactions;
+
     public User() {
-    }
-
-    /**
-     * @todo remove this constructor
-     */
-    public User(String name) {
-        this.name = name;
-    }
-
-    /**
-     * @todo remove this contstructor
-     */
-    public User(String name, Role role) {
-        this.name = name;
-        this.role = role;
     }
 
     public User(UUID id, String name, Role role, String email, String phone) {

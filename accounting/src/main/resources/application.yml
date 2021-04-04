@@ -28,6 +28,15 @@ spring:
           spring:
             issuer-uri: http://auth-server:9000
             user-info-uri: http://auth-server:9000/auth/user-info
+  kafka:
+    consumer:
+      bootstrap-servers: localhost:9092
+      group-id: accounting
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring.json.trusted.packages: "*"
 
 logging:
   level:

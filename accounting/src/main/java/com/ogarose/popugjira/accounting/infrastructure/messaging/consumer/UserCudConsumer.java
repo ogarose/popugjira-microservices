@@ -1,12 +1,12 @@
-package com.ogarose.popugjira.infrastructure.messaging.consumer;
+package com.ogarose.popugjira.accounting.infrastructure.messaging.consumer;
 
+import com.ogarose.popugjira.accounting.domain.user.Role;
+import com.ogarose.popugjira.accounting.domain.user.User;
 import com.ogarose.popugjira.common.messaging.MessageTopics;
+import com.ogarose.popugjira.accounting.infrastructure.persistence.user.UserRepositoryJpa;
 import com.ogarose.popugjira.common.messaging.auth.cud.UserCreated;
 import com.ogarose.popugjira.common.messaging.auth.cud.UserDeleted;
 import com.ogarose.popugjira.common.messaging.auth.cud.UserUpdated;
-import com.ogarose.popugjira.domain.user.Role;
-import com.ogarose.popugjira.domain.user.User;
-import com.ogarose.popugjira.infrastructure.persistence.repository.todo.UserRepositoryJpa;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaHandler;
@@ -18,7 +18,7 @@ import java.util.Optional;
 @Slf4j
 @Service
 @AllArgsConstructor
-@KafkaListener(topics = MessageTopics.USER_CUD, groupId = "tasktraker")
+@KafkaListener(topics = MessageTopics.USER_CUD)
 public class UserCudConsumer {
 
     private final UserRepositoryJpa userRepositoryJpa;

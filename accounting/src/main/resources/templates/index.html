@@ -1,10 +1,24 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/layout}"
+      xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Accounting main page</title>
+    <title>Home Page</title>
 </head>
 <body>
-    I'm in
+<main class="flex-shrink-0" layout:fragment="content">
+    <div class="container">
+        <h1 class="mt-5">Dashboard</h1>
+        <div class="row">
+            <table>
+                <tr>
+                    <th>Username</th>
+                    <th>Balance</th>
+                    <th></th>
+                </tr>
+            </table>
+        </div>
+    </div>
+</main>
 </body>
 </html>
