@@ -12,4 +12,7 @@ public class MessageTopics {
 
     public final static String USER_BIZ = DOMAIN_AUTH + "." + CLASSIFICATION_BIZ + ".user";
     public final static String USER_CUD = DOMAIN_AUTH + "." + CLASSIFICATION_CUD + ".user";
+
+    public final static String TASK_BIZ = DOMAIN_TRACKER + "." + CLASSIFICATION_BIZ + ".task";
+    public final static String TASK_CUD = DOMAIN_TRACKER + "." + CLASSIFICATION_CUD + ".task";
 }

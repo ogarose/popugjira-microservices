@@ -1,18 +1,19 @@
-package com.ogarose.popugjira.application.handler.message.biz;
+package com.ogarose.popugjira.common.messaging.traker.biz;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import java.util.UUID;
 
 @Getter
 @ToString
-public class TaskAssignedMessage {
+@NoArgsConstructor
+public class TaskAssigned {
     private UUID id;
     private UUID userId;
-    private String type = "taskAssigned";
 
-    public TaskAssignedMessage(UUID id, UUID userId) {
+    public TaskAssigned(UUID id, UUID userId) {
         this.id = id;
         this.userId = userId;
     }

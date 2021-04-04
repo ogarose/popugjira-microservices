@@ -34,6 +34,7 @@ public class User implements UserDetails, OAuth2User {
 
     private Integer balance = 0;
 
+    @EqualsAndHashCode.Exclude
     @OneToMany(mappedBy = "user")
     private Set<Transaction> transactions;
 
@@ -53,6 +54,14 @@ public class User implements UserDetails, OAuth2User {
         this.role = role;
         this.email = email;
         this.phone = phone;
+    }
+
+    public void decreaseBalance(Integer sum) {
+        balance -= Math.abs(sum);
+    }
+
+    public void increaseBalance(Integer sum) {
+        balance += Math.abs(sum);
     }
 
     @Override

@@ -1,10 +1,11 @@
 package com.ogarose.popugjira.application.handler;
 
-import com.ogarose.popugjira.application.handler.message.biz.TaskAssignedMessage;
-import com.ogarose.popugjira.application.handler.message.biz.TaskClosedMessage;
-import com.ogarose.popugjira.application.handler.message.cud.TaskCreatedMessage;
+import com.ogarose.popugjira.common.messaging.traker.biz.TaskAssigned;
+import com.ogarose.popugjira.common.messaging.traker.biz.TaskClosed;
+import com.ogarose.popugjira.common.messaging.traker.cud.TaskCreated;
 import com.ogarose.popugjira.application.notificator.EmailNotificator;
 import com.ogarose.popugjira.application.notificator.SmsNotificator;
+import com.ogarose.popugjira.common.messaging.MessageTopics;
 import com.ogarose.popugjira.domain.todo.TaskAssignedEvent;
 import com.ogarose.popugjira.domain.todo.TaskClosedEvent;
 import com.ogarose.popugjira.domain.todo.TaskCreatedEvent;
@@ -15,6 +16,9 @@ import lombok.AllArgsConstructor;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
+/**
+ * @todo looks like message bug, topiks and message object should be on infrastructure level
+ */
 @Component
 @AllArgsConstructor
 public class TaskEventsHandler {
@@ -26,22 +30,22 @@ public class TaskEventsHandler {
 
     @EventListener(TaskCreatedEvent.class)
     public void onTaskCreated(TaskCreatedEvent event) {
-        TaskCreatedMessage taskCreatedMessage = new TaskCreatedMessage(event.getTask().getPublicId());
+        TaskCreated taskCreated = new TaskCreated(event.getTask().getPublicId());
 
-        messageBus.sendMessage(MessageTopics.TASK_CUD, taskCreatedMessage.toString());
+        messageBus.sendMessage(MessageTopics.TASK_CUD, taskCreated);
     }
 
     @EventListener(TaskClosedEvent.class)
     public void onTaskClosed(TaskClosedEvent event) {
-        TaskClosedMessage taskClosedMessage = new TaskClosedMessage(event.getTaskId(), event.getTask().getAssignedTo().getId());
+        TaskClosed taskClosed = new TaskClosed(event.getTaskId(), event.getTask().getAssignedTo().getId());
 
-        messageBus.sendMessage(MessageTopics.TASK_BIZ, taskClosedMessage.toString());
+        messageBus.sendMessage(MessageTopics.TASK_BIZ, taskClosed);
     }
 
     @EventListener(TaskAssignedEvent.class)
     public void onTaskAssigned(TaskAssignedEvent event) {
-        TaskAssignedMessage taskAssignedMessage = new TaskAssignedMessage(event.getTaskId(), event.getAssignedTo());
-        messageBus.sendMessage(MessageTopics.TASK_BIZ, taskAssignedMessage.toString());
+        TaskAssigned taskAssigned = new TaskAssigned(event.getTaskId(), event.getAssignedTo());
+        messageBus.sendMessage(MessageTopics.TASK_BIZ, taskAssigned);
 
         User assignedUser = userRepository.find(event.getAssignedTo()).orElseThrow();
 
