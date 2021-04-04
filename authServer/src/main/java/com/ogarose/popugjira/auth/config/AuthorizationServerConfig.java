@@ -44,7 +44,20 @@ public class AuthorizationServerConfig {
                 .scope("write")
                 .clientSettings(clientSettings -> clientSettings.requireUserConsent(false))
                 .build();
-        return new InMemoryRegisteredClientRepository(registeredClient);
+
+        RegisteredClient accountingClient = RegisteredClient.withId(UUID.randomUUID().toString())
+                .clientId("accounting-client")
+                .clientSecret("secret")
+                .clientAuthenticationMethod(ClientAuthenticationMethod.BASIC)
+                .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
+                .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
+                .redirectUri("http://localhost:8090/login/oauth2/code/accounting-client-authorization-code")
+                .scope("read")
+                .scope("write")
+                .clientSettings(clientSettings -> clientSettings.requireUserConsent(false))
+                .build();
+
+        return new InMemoryRegisteredClientRepository(registeredClient, accountingClient);
     }
 
     @Bean

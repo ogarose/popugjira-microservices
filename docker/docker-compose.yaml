@@ -24,6 +24,18 @@ services:
       MYSQL_PASSWORD: ${DB_PASSWORD}
     volumes:
      - ./mysql:/var/lib/mysql
+  accounting-db:
+    image: mysql:5.7.33
+    container_name: popugjira-accounting-mysql
+    ports:
+      - ${ACCOUNTING_DB_PORT}:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: ${ACCOUNTING_DB_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${ACCOUNTING_DB_NAME}
+      MYSQL_USER: ${ACCOUNTING_DB_USER}
+      MYSQL_PASSWORD: ${ACCOUNTING_DB_PASSWORD}
+    volumes:
+     - ./mysqlAccounting:/var/lib/mysql
   zookeeper:
     image: confluentinc/cp-zookeeper:5.4.1
     hostname: zookeeper
