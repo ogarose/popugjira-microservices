@@ -34,4 +34,32 @@ public class Transaction {
         this.task = task;
         this.user = user;
     }
+
+    public Transaction(Integer debit, Integer credit, String description, Task task, User user) {
+        this.debit = debit;
+        this.credit = credit;
+        this.description = description;
+        this.task = task;
+        this.user = user;
+    }
+
+    public static Transaction createCreditTransaction(Integer credit, String description, Task task, User user) {
+        return new Transaction(
+                null,
+                credit,
+                description,
+                task,
+                user
+        );
+    }
+
+    public static Transaction createDebitTransaction(Integer debit, String description, Task task, User user) {
+        return new Transaction(
+                debit,
+                null,
+                description,
+                task,
+                user
+        );
+    }
 }

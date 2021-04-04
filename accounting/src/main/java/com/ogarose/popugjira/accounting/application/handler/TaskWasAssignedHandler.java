@@ -26,12 +26,10 @@ public class TaskWasAssignedHandler {
         targetUser.decreaseBalance(assignedTask.getOpenPrice());
         userRepository.save(targetUser);
 
-        Transaction newTransaction = new Transaction(
-                assignedTask.getOpenPrice(),
+        Transaction newTransaction = Transaction.createCreditTransaction(assignedTask.getOpenPrice(),
                 "Task was assigned to user",
                 assignedTask,
-                targetUser
-        );
+                targetUser);
         transactionRepository.save(newTransaction);
     }
 }

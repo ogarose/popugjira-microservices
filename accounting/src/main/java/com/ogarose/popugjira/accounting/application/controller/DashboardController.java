@@ -15,6 +15,7 @@ public class DashboardController {
     public String getIndexPage(Model model) {
 
         model.addAttribute("users", userRepository.findAll());
+        model.addAttribute("managerEarn", userRepository.getManagerEarnToday());
 
         return "index";
     }
