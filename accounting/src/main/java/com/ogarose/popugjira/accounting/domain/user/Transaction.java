@@ -43,7 +43,7 @@ public class Transaction {
         this.user = user;
     }
 
-    public static Transaction createCreditTransaction(Integer credit, String description, Task task, User user) {
+    public static Transaction createCreditTaskTransaction(Integer credit, String description, Task task, User user) {
         return new Transaction(
                 null,
                 credit,
@@ -53,7 +53,17 @@ public class Transaction {
         );
     }
 
-    public static Transaction createDebitTransaction(Integer debit, String description, Task task, User user) {
+    public static Transaction createCreditTransaction(Integer credit, String description, User user) {
+        return new Transaction(
+                null,
+                credit,
+                description,
+                null,
+                user
+        );
+    }
+
+    public static Transaction createDebitTaskTransaction(Integer debit, String description, Task task, User user) {
         return new Transaction(
                 debit,
                 null,

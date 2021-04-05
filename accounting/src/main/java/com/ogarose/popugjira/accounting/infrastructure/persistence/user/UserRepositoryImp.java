@@ -16,10 +16,8 @@ import java.util.UUID;
 @Repository
 @AllArgsConstructor
 public class UserRepositoryImp implements UserRepository {
-
     private final UserRepositoryJpa userRepositoryJpa;
     private EntityManagerFactory entityManagerFactory;
-
 
     @Override
     public Optional<User> find(UUID id) {
@@ -37,13 +35,18 @@ public class UserRepositoryImp implements UserRepository {
     }
 
     @Override
+    public List<User> findAllWithPositiveBalance() {
+        return userRepositoryJpa.findAllWithPositiveBalance();
+    }
+
+    @Override
     public Integer getManagerEarnToday() {
         EntityManager session = entityManagerFactory.createEntityManager();
         try {
             BigDecimal earnSum = (BigDecimal)session.createNativeQuery("select sum(sub.sum_credit) as today_earn from (select task_id, sum(credit) as sum_credit, sum(debit) as sum_debit from transaction where task_id is not null and date(created_at) = date(now()) group by task_id having sum_debit is null) as sub")
                     .getSingleResult();
 
-            return Math.abs(earnSum.intValue());
+            return earnSum == null ? 0 : Math.abs(earnSum.intValue());
         }
         catch (NoResultException e){
             return null;

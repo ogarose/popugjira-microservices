@@ -26,7 +26,7 @@ public class Task {
     public Task(UUID id) {
         this.id = id;
         Random random = new Random();
-        openPrice = random.nextInt(10) - 20;
+        openPrice = random.nextInt(10) + 10;
         closePrice = random.nextInt(20) + 20;
     }
 }

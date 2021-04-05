@@ -26,7 +26,7 @@ public class TaskWasClosedHandler {
         targetUser.increaseBalance(assignedTask.getClosePrice());
         userRepository.save(targetUser);
 
-        Transaction newTransaction = Transaction.createDebitTransaction(assignedTask.getClosePrice(),
+        Transaction newTransaction = Transaction.createDebitTaskTransaction(assignedTask.getClosePrice(),
                 "Task was closed by user",
                 assignedTask,
                 targetUser);

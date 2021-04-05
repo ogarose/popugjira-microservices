@@ -64,6 +64,10 @@ public class User implements UserDetails, OAuth2User {
         balance += Math.abs(sum);
     }
 
+    public void payBalance() {
+        balance = 0;
+    }
+
     @Override
     public Map<String, Object> getAttributes() {
         return new HashMap<>();
