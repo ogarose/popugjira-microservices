@@ -7,6 +7,8 @@ package com.ogarose.popugjira.common.messaging;
 public class MessageTopics {
     private final static String DOMAIN_AUTH = "auth";
     private final static String DOMAIN_TRACKER = "tracker";
+    private final static String DOMAIN_ACCOUNTING = "tracker";
+
     private final static String CLASSIFICATION_BIZ = "biz";
     private final static String CLASSIFICATION_CUD = "cud";
 
@@ -15,4 +17,6 @@ public class MessageTopics {
 
     public final static String TASK_BIZ = DOMAIN_TRACKER + "." + CLASSIFICATION_BIZ + ".task";
     public final static String TASK_CUD = DOMAIN_TRACKER + "." + CLASSIFICATION_CUD + ".task";
+
+    public final static String USER_ACCOUNTING_BIZ = DOMAIN_ACCOUNTING + "." + CLASSIFICATION_BIZ + ".user";
 }
