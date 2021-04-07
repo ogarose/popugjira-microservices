@@ -26,9 +26,6 @@ dependencies {
 
 	compile 'org.springframework.boot:spring-boot-starter-security'
 	compile 'org.springframework.boot:spring-boot-starter-oauth2-client'
-//	implementation 'org.springframework.security.oauth.boot:spring-security-oauth2-autoconfigure'
-//	compile 'org.springframework:spring-webflux'
-//	compile 'io.projectreactor.netty:reactor-netty'
 	compile 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
 
 	implementation 'org.springframework.kafka:spring-kafka'
@@ -48,10 +45,9 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
-// TODO uncomment when tests are ready. ./gradlew build should work.
-//test {
-//	useJUnitPlatform()
-//}
+test {
+	useJUnitPlatform()
+}
 
 task prepareKotlinBuildScriptModel {
 

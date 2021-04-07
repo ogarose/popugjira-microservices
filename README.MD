@@ -15,3 +15,7 @@ docker-compose -f docker/docker-compose-full.yaml up
 ```
 
 Open http://localhost:8080/todo
+
+TODO
+-
+- use value objects (Money, ID, Email and so on)

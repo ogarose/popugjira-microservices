@@ -15,9 +15,8 @@ public class MainController {
 
     @GetMapping(path = "/customers")
     public String customers(Principal principal, Model model) {
-//        addCustomers();
-//        model.addAttribute("customers", customerDAO.findAll());
         model.addAttribute("username", principal.getName());
+
         return "customers";
     }
 }

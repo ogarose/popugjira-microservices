@@ -3,6 +3,7 @@ package com.ogarose.popugjira.infrastructure.config;
 import com.ogarose.popugjira.infrastructure.websecurity.OAuth2UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -10,6 +11,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 //@EnableWebSecurity
 @Configuration
 @AllArgsConstructor
+@Profile("default")
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final OAuth2UserService oAuth2UserService;
