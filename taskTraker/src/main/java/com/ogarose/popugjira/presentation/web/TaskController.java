@@ -20,6 +20,9 @@ import javax.validation.Valid;
 @Controller
 @AllArgsConstructor
 public class TaskController {
+    public static final String REDIRECT_TODO = "redirect:/todo";
+    public static final String SUCCESS_ALERT = "successAlert";
+
     private final CreateNew createNewTaskUseCase;
     private final CloseTask closeTaskUseCase;
     private final ReopenTask reopenTaskUseCase;
@@ -43,35 +46,35 @@ public class TaskController {
         }
 
         TaskCommand handledTask = createNewTaskUseCase.createNew(taskCommand);
-        redirectAttributes.addFlashAttribute("successAlert", "Task has been created. ID " + handledTask.getId());
+        redirectAttributes.addFlashAttribute(SUCCESS_ALERT, "Task has been created. ID " + handledTask.getId());
 
-        return "redirect:/todo";
+        return REDIRECT_TODO;
     }
 
     @GetMapping("/task/{id}/close")
     public String close(@PathVariable Integer id, RedirectAttributes redirectAttributes) {
         closeTaskUseCase.close(id);
 
-        redirectAttributes.addFlashAttribute("successAlert", "Task has been closed. ID " + id);
+        redirectAttributes.addFlashAttribute(SUCCESS_ALERT, "Task has been closed. ID " + id);
 
-        return "redirect:/todo";
+        return REDIRECT_TODO;
     }
 
     @GetMapping("/task/{id}/reopen")
     public String reopen(@PathVariable Integer id, RedirectAttributes redirectAttributes) {
         reopenTaskUseCase.reopen(id);
 
-        redirectAttributes.addFlashAttribute("successAlert", "Task has been reopened. ID " + id);
+        redirectAttributes.addFlashAttribute(SUCCESS_ALERT, "Task has been reopened. ID " + id);
 
-        return "redirect:/todo";
+        return REDIRECT_TODO;
     }
 
     @GetMapping("/task/reassign-all")
     public String reassignAll(RedirectAttributes redirectAttributes) {
         reasignAllTasksUseCase.execute();
 
-        redirectAttributes.addFlashAttribute("successAlert", "All tasks have been reasign");
+        redirectAttributes.addFlashAttribute(SUCCESS_ALERT, "All tasks have been reasign");
 
-        return "redirect:/todo";
+        return REDIRECT_TODO;
     }
 }

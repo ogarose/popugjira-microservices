@@ -17,7 +17,7 @@ import java.util.*;
 @EqualsAndHashCode
 public class User implements UserDetails, OAuth2User {
     @Id
-    @Column(name = "id", columnDefinition = "BINARY(16)", updatable = false, nullable = false)
+    @Column(columnDefinition = "BINARY(16)", updatable = false, nullable = false)
     private UUID id;
 
     @Column(nullable = false)

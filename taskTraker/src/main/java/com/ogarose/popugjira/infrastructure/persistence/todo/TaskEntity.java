@@ -1,7 +1,6 @@
 package com.ogarose.popugjira.infrastructure.persistence.todo;
 
 import com.ogarose.popugjira.domain.todo.Status;
-import com.ogarose.popugjira.domain.user.User;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.domain.AbstractAggregateRoot;
@@ -32,9 +31,9 @@ public class TaskEntity extends AbstractAggregateRoot<TaskEntity> {
     @Column(columnDefinition = "BINARY(16)")
     private UUID assignToId;
 
-    @Column(name = "created_at", nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    @Column(nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private LocalDateTime createdAt;
 
-    @Column(name = "closed_at", nullable = true, updatable = true)
+    @Column(nullable = true, updatable = true)
     private LocalDateTime closedAt;
 }

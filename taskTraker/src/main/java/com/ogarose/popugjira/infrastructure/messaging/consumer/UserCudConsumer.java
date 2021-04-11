@@ -21,11 +21,13 @@ import java.util.Optional;
 @KafkaListener(topics = MessageTopics.USER_CUD, groupId = "tasktraker")
 public class UserCudConsumer {
 
+    public static final String CONSUMED_MESSAGE_TEMPLATE = "$$$$ => Consumed message: %s";
+
     private final UserRepositoryJpa userRepositoryJpa;
 
     @KafkaHandler
     public void listener(UserCreated userCreated) {
-        log.info(String.format("$$$$ => Consumed message: %s", userCreated));
+        log.info(String.format(CONSUMED_MESSAGE_TEMPLATE, userCreated));
 
         User newUser = new User(
                 userCreated.getPublicId(),
@@ -39,14 +41,14 @@ public class UserCudConsumer {
 
     @KafkaHandler
     public void listener(UserDeleted userDeleted) {
-        log.info(String.format("$$$$ => Consumed message: %s", userDeleted));
+        log.info(String.format(CONSUMED_MESSAGE_TEMPLATE, userDeleted));
 
         userRepositoryJpa.deleteById(userDeleted.getPublicId());
     }
 
     @KafkaHandler
     public void listener(UserUpdated userUpdated) {
-        log.info(String.format("$$$$ => Consumed message: %s", userUpdated));
+        log.info(String.format(CONSUMED_MESSAGE_TEMPLATE, userUpdated));
 
         Optional<User> userToUpdateOption = userRepositoryJpa
                 .findById(userUpdated.getPublicId());

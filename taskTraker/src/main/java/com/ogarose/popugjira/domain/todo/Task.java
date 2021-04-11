@@ -1,6 +1,7 @@
 package com.ogarose.popugjira.domain.todo;
 
 import com.ogarose.popugjira.common.types.Aggregate;
+import com.ogarose.popugjira.common.types.DomainException;
 import com.ogarose.popugjira.domain.user.User;
 import lombok.Getter;
 
@@ -47,7 +48,7 @@ public class Task extends Aggregate<TaskId> {
 
     public void close() {
         if (!status.canBeChangeTo(Status.CLOSED)) {
-            throw new RuntimeException("Can no be change to closed");
+            throw new DomainException("Can no be change to closed");
         }
 
         status = Status.CLOSED;
@@ -58,7 +59,7 @@ public class Task extends Aggregate<TaskId> {
 
     public void reopen() {
         if (!status.canBeChangeTo(Status.OPEN)) {
-            throw new RuntimeException("Can no be change to open");
+            throw new DomainException("Can no be change to open");
         }
 
         status = Status.OPEN;
