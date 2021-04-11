@@ -45,7 +45,7 @@ class TaskBizConsumerTest {
 
         messageBus.sendMessage(MessageTopics.TASK_BIZ, incomeMessage);
 
-        Thread.sleep(4000);
+        Thread.sleep(10000);
 
         User updatedAdmin = userRepository.find(admin.getId()).orElseThrow();
         Assertions.assertEquals(Math.abs(updatedAdmin.getBalance()), (int) usersTask.getOpenPrice());
@@ -69,7 +69,7 @@ class TaskBizConsumerTest {
 
         messageBus.sendMessage(MessageTopics.TASK_BIZ, incomeMessage);
 
-        Thread.sleep(4000);
+        Thread.sleep(10000);
 
         User updatedAdmin = userRepository.find(admin.getId()).orElseThrow();
         Assertions.assertEquals(Math.abs(updatedAdmin.getBalance()), (int) usersTask.getClosePrice());

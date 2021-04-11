@@ -1,7 +1,7 @@
 package com.ogarose.popugjira.accounting.infrastructure.messaging.consumer;
 
-import com.ogarose.popugjira.accounting.application.handler.TaskWasAssignedHandler;
-import com.ogarose.popugjira.accounting.application.handler.TaskWasClosedHandler;
+import com.ogarose.popugjira.accounting.application.handler.DecreaseBalanceByTaskWhenTaskAssignedHandler;
+import com.ogarose.popugjira.accounting.application.handler.IncreaseBalanceByTaskWhenTaskClosed;
 import com.ogarose.popugjira.common.messaging.MessageTopics;
 import com.ogarose.popugjira.common.messaging.traker.biz.TaskAssigned;
 import com.ogarose.popugjira.common.messaging.traker.biz.TaskClosed;
@@ -14,12 +14,12 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 @KafkaListener(topics = MessageTopics.TASK_BIZ)
 public class TaskBizConsumer {
-    private final TaskWasAssignedHandler taskWasAssignedHandler;
-    private final TaskWasClosedHandler taskWasClosedHandler;
+    private final DecreaseBalanceByTaskWhenTaskAssignedHandler decreaseBalanceByTaskWhenTaskAssignedHandler;
+    private final IncreaseBalanceByTaskWhenTaskClosed taskWasClosedHandler;
 
     @KafkaHandler
     public void listener(TaskAssigned taskAssigned) {
-        taskWasAssignedHandler.handle(taskAssigned.getUserId(), taskAssigned.getId());
+        decreaseBalanceByTaskWhenTaskAssignedHandler.handle(taskAssigned.getUserId(), taskAssigned.getId());
     }
 
     @KafkaHandler

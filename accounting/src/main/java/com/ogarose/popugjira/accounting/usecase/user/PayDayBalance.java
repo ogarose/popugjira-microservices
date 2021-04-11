@@ -1,4 +1,4 @@
-package com.ogarose.popugjira.accounting.application.usecase.user;
+package com.ogarose.popugjira.accounting.usecase.user;
 
 import com.ogarose.popugjira.accounting.domain.user.Transaction;
 import com.ogarose.popugjira.accounting.domain.user.TransactionRepository;
@@ -31,7 +31,6 @@ public class PayDayBalance {
             userRepository.save(user);
 
             messageBus.sendMessage(MessageTopics.USER_ACCOUNTING_BIZ, new BalancePaid(user.getId(), payBalanceTransaction.getCredit()));
-
         });
     }
 }

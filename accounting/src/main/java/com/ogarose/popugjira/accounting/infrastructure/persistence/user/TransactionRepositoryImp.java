@@ -15,7 +15,7 @@ public class TransactionRepositoryImp implements TransactionRepository {
 
     @Override
     public List<Transaction> findAllOfDayByUser(User userId) {
-        return transactionRepositoryJpa.findAllByUserOrderByCreatedAt(userId);
+        return transactionRepositoryJpa.findAllOfDayByUser(userId.getId());
     }
 
     @Override

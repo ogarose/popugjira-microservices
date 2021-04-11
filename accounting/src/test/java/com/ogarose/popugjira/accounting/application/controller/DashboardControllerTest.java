@@ -47,7 +47,7 @@ public class DashboardControllerTest {
         )
                 .andExpect(status().is3xxRedirection());
 
-                Thread.sleep(4000);
+                Thread.sleep(10000);
 
         User updatedUser = userRepository.find(admin.getId()).orElseThrow();
         Assertions.assertEquals(updatedUser.getBalance(), 0);

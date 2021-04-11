@@ -12,8 +12,5 @@ public interface UserRepository {
     Integer getManagerEarnToday();
     List<User> findAllWithPositiveBalance();
 
-    /**
-     * @todo need to look into Transactional? Save Once per app service.
-     */
     User save(User user);
 }

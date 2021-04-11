@@ -1,6 +1,6 @@
 package com.ogarose.popugjira.accounting.infrastructure.messaging.consumer;
 
-import com.ogarose.popugjira.accounting.application.handler.BalancePaidHandler;
+import com.ogarose.popugjira.accounting.application.handler.SendNotificationWhenBalancePaidHandler;
 import com.ogarose.popugjira.common.messaging.MessageTopics;
 import com.ogarose.popugjira.common.messaging.accounting.biz.BalancePaid;
 import lombok.AllArgsConstructor;
@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 @KafkaListener(topics = MessageTopics.USER_ACCOUNTING_BIZ)
 public class UserAccountingBizConsumer {
 
-    private final BalancePaidHandler handler;
+    private final SendNotificationWhenBalancePaidHandler handler;
 
     @KafkaHandler
     public void listener(BalancePaid balancePaid) {

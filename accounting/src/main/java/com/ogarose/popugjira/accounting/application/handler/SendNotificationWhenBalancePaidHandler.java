@@ -10,7 +10,7 @@ import java.util.UUID;
 
 @Service
 @AllArgsConstructor
-public class BalancePaidHandler {
+public class SendNotificationWhenBalancePaidHandler {
     private final UserRepository userRepository;
     private final EmailNotificator emailNotificator;
 

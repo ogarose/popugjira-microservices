@@ -1,8 +1,6 @@
 package com.ogarose.popugjira.accounting.application.controller;
 
-import com.ogarose.popugjira.accounting.domain.user.TransactionRepository;
-import com.ogarose.popugjira.accounting.domain.user.User;
-import com.ogarose.popugjira.accounting.domain.user.UserRepository;
+import com.ogarose.popugjira.accounting.usecase.user.GetAllUserDayTransactionsUseCase;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,14 +14,11 @@ import java.util.UUID;
 @RequestMapping("/transactions")
 @AllArgsConstructor
 public class TransactionController {
-    private final TransactionRepository transactionRepository;
-    private final UserRepository userRepository;
+    private GetAllUserDayTransactionsUseCase getAllUserDayTransactionsUseCase;
 
     @GetMapping("/user/{id}/day")
     public String userDayTransaction(@PathVariable UUID id, Model model) {
-        User searchedUser = userRepository.find(id).orElseThrow();
-
-        model.addAttribute("transactions", transactionRepository.findAllOfDayByUser(searchedUser));
+        model.addAttribute("transactions", getAllUserDayTransactionsUseCase.execute(id));
 
         return "transaction/user_day";
     }

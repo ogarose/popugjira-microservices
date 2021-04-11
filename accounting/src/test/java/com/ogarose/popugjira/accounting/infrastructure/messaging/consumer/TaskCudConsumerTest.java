@@ -31,7 +31,7 @@ public class TaskCudConsumerTest {
 
         messageBus.sendMessage(MessageTopics.TASK_CUD, incomeMessage);
 
-        Thread.sleep(4000);
+        Thread.sleep(10000);
 
         Optional<Task> createdTaskOption = taskRepository.findById(incomeMessage.getId());
         Assertions.assertTrue(createdTaskOption.isPresent());
