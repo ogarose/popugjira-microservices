@@ -6,6 +6,7 @@ import com.ogarose.popugjira.accounting.domain.user.User;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -15,7 +16,12 @@ public class TransactionRepositoryImp implements TransactionRepository {
 
     @Override
     public List<Transaction> findAllOfDayByUser(User userId) {
-        return transactionRepositoryJpa.findAllOfDayByUser(userId.getId());
+        LocalDate today = LocalDate.now();
+
+        return transactionRepositoryJpa.findAllByCreatedAtAfterAndAndUserOrderByCreatedAt(
+                today.atStartOfDay(),
+                userId
+        );
     }
 
     @Override

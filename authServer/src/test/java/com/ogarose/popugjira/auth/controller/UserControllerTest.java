@@ -14,6 +14,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -51,6 +52,7 @@ public class UserControllerTest {
     }
 
     @Test
+    @Transactional
     public void showAllUsersList() throws Exception {
         this.mockMvc.perform(get("/users")).andDo(print())
                 .andExpect(status().isOk())
@@ -58,6 +60,7 @@ public class UserControllerTest {
     }
 
     @Test
+    @Transactional
     public void addNewUser() throws Exception {
         this.mockMvc.perform(post("/users")
                 .param("username", "test_new")
