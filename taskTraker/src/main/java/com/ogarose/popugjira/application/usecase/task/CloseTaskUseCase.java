@@ -2,9 +2,7 @@ package com.ogarose.popugjira.application.usecase.task;
 
 import com.ogarose.popugjira.application.exceptions.NotFoundException;
 import com.ogarose.popugjira.domain.todo.Task;
-import com.ogarose.popugjira.domain.todo.TaskExtractor;
 import com.ogarose.popugjira.domain.todo.TaskId;
-import com.ogarose.popugjira.domain.todo.TaskPersister;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

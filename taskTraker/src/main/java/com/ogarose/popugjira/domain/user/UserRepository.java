@@ -9,8 +9,5 @@ public interface UserRepository {
     Optional<User> findByName(String name);
     List<User> findAll();
 
-    /**
-     * @todo need to look into Transactional? Save Once per app service.
-     */
     User save(User user);
 }

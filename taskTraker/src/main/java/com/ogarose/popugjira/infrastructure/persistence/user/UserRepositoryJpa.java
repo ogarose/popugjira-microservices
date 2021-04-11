@@ -1,4 +1,4 @@
-package com.ogarose.popugjira.infrastructure.persistence.repository.todo;
+package com.ogarose.popugjira.infrastructure.persistence.user;
 
 import com.ogarose.popugjira.domain.user.User;
 import org.springframework.data.repository.CrudRepository;

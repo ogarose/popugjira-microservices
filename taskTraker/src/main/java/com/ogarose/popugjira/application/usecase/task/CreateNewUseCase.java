@@ -16,8 +16,8 @@ public class CreateNewUseCase implements CreateNew {
     @Override
     public TaskCommand createNew(TaskCommand taskCommand) {
         Task task = Task.createNew(taskGenerator, new TaskTitle(taskCommand.getTitle()));
-        Task savedTask = taskPersister.save(task);
+        taskPersister.save(task);
 
-        return taskCommandMapper.toCommand(savedTask);
+        return taskCommandMapper.toCommand(task);
     }
 }

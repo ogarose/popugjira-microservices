@@ -1,5 +1,7 @@
 package com.ogarose.popugjira.presentation.web;
 
+import com.ogarose.popugjira.application.usecase.task.TaskExtractor;
+import com.ogarose.popugjira.application.usecase.task.TaskPersister;
 import com.ogarose.popugjira.common.messaging.traker.biz.TaskAssigned;
 import com.ogarose.popugjira.common.messaging.traker.biz.TaskClosed;
 import com.ogarose.popugjira.common.messaging.traker.cud.TaskCreated;

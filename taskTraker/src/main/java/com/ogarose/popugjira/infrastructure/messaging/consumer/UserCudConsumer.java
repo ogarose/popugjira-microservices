@@ -6,7 +6,7 @@ import com.ogarose.popugjira.common.messaging.auth.cud.UserDeleted;
 import com.ogarose.popugjira.common.messaging.auth.cud.UserUpdated;
 import com.ogarose.popugjira.domain.user.Role;
 import com.ogarose.popugjira.domain.user.User;
-import com.ogarose.popugjira.infrastructure.persistence.repository.todo.UserRepositoryJpa;
+import com.ogarose.popugjira.infrastructure.persistence.user.UserRepositoryJpa;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaHandler;

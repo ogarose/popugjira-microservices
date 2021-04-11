@@ -1,8 +1,6 @@
 package com.ogarose.popugjira.application.usecase.task;
 
 import com.ogarose.popugjira.domain.todo.Task;
-import com.ogarose.popugjira.domain.todo.TaskExtractor;
-import com.ogarose.popugjira.domain.todo.TaskPersister;
 import com.ogarose.popugjira.domain.user.User;
 import com.ogarose.popugjira.domain.user.UserRepository;
 import lombok.AllArgsConstructor;

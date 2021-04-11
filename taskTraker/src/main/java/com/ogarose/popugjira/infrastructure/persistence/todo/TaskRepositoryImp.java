@@ -1,5 +1,7 @@
 package com.ogarose.popugjira.infrastructure.persistence.todo;
 
+import com.ogarose.popugjira.application.usecase.task.TaskExtractor;
+import com.ogarose.popugjira.application.usecase.task.TaskPersister;
 import com.ogarose.popugjira.domain.todo.*;
 import com.ogarose.popugjira.infrastructure.events.EventPublisher;
 import lombok.AllArgsConstructor;
@@ -38,14 +40,11 @@ public class TaskRepositoryImp implements TaskPersister, TaskExtractor {
     }
 
     @Override
-    public Task save(Task task) {
+    public void save(Task task) {
         TaskEntity taskEntity = taskEntityMapper.toEntity(task);
 
         taskRepositoryJpa.save(taskEntity);
 
         eventPublisher.publish(task.popEvents());
-
-        //@todo do not need to return task object
-        return task;
     }
 }

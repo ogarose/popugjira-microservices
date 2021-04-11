@@ -1,7 +1,6 @@
 package com.ogarose.popugjira.application.usecase.task;
 
 import com.ogarose.popugjira.application.usecase.task.response.TaskResponse;
-import com.ogarose.popugjira.domain.todo.TaskExtractor;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

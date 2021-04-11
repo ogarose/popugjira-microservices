@@ -39,32 +39,5 @@ public class OAuth2UserService extends DefaultOAuth2UserService {
         }
 
         return foundOauthUserOptional.get();
-
-//        SimpleGrantedAuthority authority = new SimpleGrantedAuthority(Role.ROLE_EMPLOYEE.getAuthority());
-//        List<SimpleGrantedAuthority> updatedAuthorities = new ArrayList();
-//        updatedAuthorities.add(authority);
-//        updatedAuthorities.addAll((Collection<? extends SimpleGrantedAuthority>) oAuth2User.getAuthorities());
-//
-//        OAuth2User newUser = new DefaultOAuth2User(
-//                updatedAuthorities,
-//                oAuth2User.getAttributes(),
-//                "sub"
-//        );
-
-
-//        oAuth2User.
-
-//
-//        SecurityContextHolder.getContext().setAuthentication(
-//                new UsernamePasswordAuthenticationToken(
-//                        SecurityContextHolder.getContext().getAuthentication().getPrincipal(),
-//                        SecurityContextHolder.getContext().getAuthentication().getCredentials(),
-//                        updatedAuthorities)
-//        );
-
-//        SecurityContextHolder.getContext().getAuthentication().getAuthorities().add((GrantedAuthority) new SimpleGrantedAuthority("as")));
-
-//        return oAuth2User;
-//        return newUser;
     }
 }
