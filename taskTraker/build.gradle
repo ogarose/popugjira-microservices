@@ -31,6 +31,7 @@ dependencies {
 	implementation 'org.springframework.kafka:spring-kafka'
 
 	implementation project(':common:messaging')
+	implementation project(':common:types')
 
 	implementation 'org.mapstruct:mapstruct:1.4.1.Final'
 	compileOnly 'org.projectlombok:lombok'

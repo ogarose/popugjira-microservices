@@ -1,54 +1,48 @@
 package com.ogarose.popugjira.domain.todo;
 
+import com.ogarose.popugjira.common.types.Aggregate;
 import com.ogarose.popugjira.domain.user.User;
 import lombok.Getter;
-import org.springframework.data.domain.AbstractAggregateRoot;
 
-import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-@Entity(name = "Task")
 @Getter
-public class Task extends AbstractAggregateRoot<Task> {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-
-    @GeneratedValue()
-    @Column(columnDefinition = "BINARY(16)", updatable = false, nullable = false)
-    private UUID publicId;
-
-    @Column(nullable = false)
-    private String title;
-
-    @Column(nullable = false)
-    @Enumerated(EnumType.STRING)
+public class Task extends Aggregate<TaskId> {
+    private TaskTitle title;
     private Status status;
-
-    /**
-     * @todo Task and User aggregate are independent. Rewrite just to user_id.
-     */
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private User assignedTo;
-
-    @Column(name = "created_at", nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    private UUID assignToId;
     private LocalDateTime createdAt;
-
-    @Column(name = "closed_at", nullable = true, updatable = true)
     private LocalDateTime closedAt;
 
     public Task() {
     }
 
-    public Task(UUID publicId, String title) {
-        this.publicId = publicId;
+    private Task(TaskId id, TaskTitle title, Status status, LocalDateTime createdAt) {
+        this.id = id;
         this.title = title;
-        this.status = Status.OPEN;
-        this.createdAt = LocalDateTime.now();
+        this.status = status;
+        this.createdAt = createdAt;
+    }
 
-        registerEvent(new TaskCreatedEvent(this.publicId, this));
+    public static Task createNew(TaskIdGenerator taskIdGenerator, TaskTitle taskTitle) {
+        Task createdTask = new Task(taskIdGenerator.generate(), taskTitle, Status.OPEN, LocalDateTime.now());
+        createdTask.applyEvent(new TaskEvent.Created(createdTask.getId(), createdTask));
+        return createdTask;
+    }
+
+    public static Task restore(TaskId id, TaskTitle title, Status status, LocalDateTime createdAt, UUID assignToId, LocalDateTime closedAt) {
+        Task restoredTask = new Task(
+                id,
+                title,
+                status,
+                createdAt
+        );
+
+        restoredTask.assignToId = assignToId;
+        restoredTask.closedAt = closedAt;
+
+        return restoredTask;
     }
 
     public void close() {
@@ -59,7 +53,7 @@ public class Task extends AbstractAggregateRoot<Task> {
         status = Status.CLOSED;
         closedAt = LocalDateTime.now();
 
-        registerEvent(new TaskClosedEvent(this.publicId, this));
+        this.applyEvent(new TaskEvent.Closed(this.id, this));
     }
 
     public void reopen() {
@@ -71,8 +65,8 @@ public class Task extends AbstractAggregateRoot<Task> {
     }
 
     public void assignTo(User user) {
-        assignedTo = user;
+        assignToId = user.getId();
 
-        registerEvent(new TaskAssignedEvent(this, this.publicId, user.getId()));
+        applyEvent(new TaskEvent.Assigned(this, this.id, this.assignToId));
     }
 }

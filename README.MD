@@ -17,5 +17,6 @@ docker-compose -f docker/docker-compose-full.yaml up
 Open http://localhost:8080/todo
 
 TODO
--
+- 
+- Add SuperTypes - VO, Aggregate, DomainEvent ()
 - use value objects (Money, ID, Email and so on)
