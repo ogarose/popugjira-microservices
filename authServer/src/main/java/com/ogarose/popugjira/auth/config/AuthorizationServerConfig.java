@@ -51,7 +51,7 @@ public class AuthorizationServerConfig {
                 .clientAuthenticationMethod(ClientAuthenticationMethod.BASIC)
                 .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
                 .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
-                .redirectUri("http://localhost:8090/login/oauth2/code/accounting-client-authorization-code")
+                .redirectUri("http://accounting-app:8090/login/oauth2/code/accounting-client-authorization-code")
                 .scope("read")
                 .scope("write")
                 .clientSettings(clientSettings -> clientSettings.requireUserConsent(false))

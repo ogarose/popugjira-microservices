@@ -1,5 +1,5 @@
 FROM openjdk:11.0.6-jdk-slim
 
 VOLUME /tmp
-COPY ./build/libs/popugjira-0.0.1-SNAPSHOT.jar app.jar
+COPY ./build/libs/taskTraker-0.0.1-SNAPSHOT.jar app.jar
 ENTRYPOINT ["java","-jar","/app.jar"]

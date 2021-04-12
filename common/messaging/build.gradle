@@ -11,11 +11,11 @@ group = 'com.ogarose.popugjira.common'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
 
-configurations {
-    compileOnly {
-        extendsFrom annotationProcessor
-    }
-}
+//configurations {
+//    compileOnly {
+//        extendsFrom annotationProcessor
+//    }
+//}
 
 repositories {
     mavenCentral()
@@ -34,9 +34,9 @@ dependencies {
 //    useJUnitPlatform()
 //}
 
-jar {
-    enabled = true
-}
+//jar {
+//    enabled = true
+//}
 
 task prepareKotlinBuildScriptModel {
 

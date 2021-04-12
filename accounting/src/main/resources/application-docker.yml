@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:mysql://traker-db:3306/${DB_NAME}
+    url: jdbc:mysql://accounting-db:3306/${ACCOUNTING_DB_NAME}
   kafka:
     producer:
       bootstrap-servers: broker:9092
