@@ -1,4 +1,4 @@
-# Microservices Pet project
+# Multiservices Pet project
 
 The project consists of 3 services:
 - AuthServer - authentication service + user managements
